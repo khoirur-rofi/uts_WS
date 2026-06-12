@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Asisten Kreator membantu kreator membuat ide, judul, hook, hashtag, dan blueprint konten secara statis di browser.">
+  <title>Asisten Kreator</title>
+  <link rel="stylesheet" href="assets/css/ui-system.css">
+  <script defer src="assets/js/data.js"></script>
+  <script defer src="assets/js/storage.js"></script>
+  <script defer src="assets/js/generators.js"></script>
+  <script defer src="assets/js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#generator">Lewati ke generator</a>
+
+  <header class="navbar" aria-label="Navigasi utama">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Asisten Kreator beranda">
+        <span class="brand-mark" aria-hidden="true">CA</span>
+        <span>Asisten Kreator</span>
+      </a>
+      <nav class="nav-links" aria-label="Menu halaman">
+        <a href="#generator">Generator</a>
+        <a href="#results">Hasil</a>
+        <a href="#history">Riwayat</a>
+        <a href="#favorites">Favorit</a>
+      </nav>
+      <button class="theme-toggle" type="button" id="themeToggle" aria-label="Aktifkan night mode" aria-pressed="false">
+        <span class="theme-toggle-track" aria-hidden="true">
+          <span class="theme-toggle-icon theme-toggle-icon-day"></span>
+          <span class="theme-toggle-icon theme-toggle-icon-night"></span>
+          <span class="theme-toggle-knob"></span>
+        </span>
+        <span class="theme-toggle-text" id="themeToggleText">Day</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-content animate-fade">
+          <p class="eyebrow">Dashboard ide konten</p>
+          <h1 id="hero-title">Asisten Kreator</h1>
+          <p class="hero-subtitle">Buat ide, judul, hook, hashtag, dan blueprint konten dalam hitungan detik.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary btn-large" href="#generator" aria-label="Mulai membuat konten">Mulai</a>
+          </div>
+        </div>
+        <div class="hero-snapshot animate-slide-up" aria-label="Cuplikan hasil generator">
+          <div class="snapshot-header">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="snapshot-body">
+            <p class="snapshot-label">Blueprint</p>
+            <h2>[IDE] 3 sudut pandang baru untuk topikmu</h2>
+            <p>[HOOK] Buka dengan masalah yang langsung terasa relevan.</p>
+            <div class="snapshot-lines" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="generator" aria-labelledby="generator-title">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Generator</p>
+            <h2 id="generator-title">Pilih output yang kamu butuhkan</h2>
+          </div>
+          <p></p>
+        </div>
+
+        <form class="generator-panel" id="generatorForm">
+          <label for="topicInput">Topik konten</label>
+          <div class="input-wrap">
+            <input
+              id="topicInput"
+              name="topic"
+              type="text"
+              placeholder="Masukkan Topik... e.g., ChatGPT, Crypto, Investasi"
+              autocomplete="off"
+              aria-describedby="topicHelp"
+            >
+          </div>
+          <p id="topicHelp" class="sr-only">Tekan Enter untuk Generate All, atau pilih salah satu tombol generator.</p>
+
+          <div class="action-toolbar" role="toolbar" aria-label="Aksi generator konten">
+            <button class="btn btn-primary" type="submit" data-generate="all" aria-label="Generate semua output">Generate All</button>
+            <button class="btn btn-ghost" type="button" id="resetGeneratorBtn" aria-label="Reset generator">Reset</button>
+            <button class="btn btn-secondary" type="button" data-generate="idea" aria-label="Generate ide konten">Ide</button>
+            <button class="btn btn-secondary" type="button" data-generate="title" aria-label="Generate judul konten">Judul</button>
+            <button class="btn btn-secondary" type="button" data-generate="hook" aria-label="Generate hook konten">Hook</button>
+            <button class="btn btn-secondary" type="button" data-generate="hashtag" aria-label="Generate hashtag konten">Hashtag</button>
+            <button class="btn btn-secondary" type="button" data-generate="blueprint" aria-label="Generate blueprint konten">Blueprint</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section" id="results" aria-labelledby="results-title">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Results</p>
+            <h2 id="results-title">Output terbaru</h2>
+          </div>
+        </div>
+        <div class="result-grid" id="resultGrid" aria-live="polite">
+          <div class="empty-state">
+            <h3>Belum ada hasil</h3>
+            <p>Output akan muncul di sini.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="history" aria-labelledby="history-title">
+      <div class="container">
+        <div class="section-heading section-heading-actions">
+          <div>
+            <p class="eyebrow">History</p>
+            <h2 id="history-title">Riwayat terakhir</h2>
+          </div>
+          <button class="btn btn-ghost" type="button" id="clearHistoryBtn" aria-label="Hapus semua riwayat">Bersihkan</button>
+        </div>
+        <div class="list-grid" id="historyList" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section" id="favorites" aria-labelledby="favorites-title">
+      <div class="container">
+        <div class="section-heading section-heading-actions">
+          <div>
+            <p class="eyebrow">Favorites</p>
+            <h2 id="favorites-title">Konten tersimpan</h2>
+          </div>
+          <button class="btn btn-ghost" type="button" id="clearFavoritesBtn" aria-label="Hapus semua favorit">Bersihkan</button>
+        </div>
+        <div class="list-grid" id="favoritesList" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>Asisten Kreator</p>
+      <p></p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
